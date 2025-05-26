@@ -42,9 +42,121 @@
       border-radius: 10px;
       box-shadow: inset 0 -10px 0 #fff;
     }
-    .layer1 {
-      width: 180px;
-      height: 60px;
+    .layer1 { width: 180px; height: 60px; }
+    .layer2 { width: 140px; height: 50px; bottom: 60px; }
+    .layer3 { width: 100px; height: 40px; bottom: 110px; }
+    .candle {
+      position: absolute;
+      width: 10px;
+      height: 30px;
+      background: #fff;
+      border-radius: 3px;
+      top: -30px;
+      left: calc(50% - 5px);
     }
-    .layer2 {
-      width: 140px;
+    .flame {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle, gold, orange);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      animation: flicker 0.2s infinite alternate;
+    }
+    @keyframes flicker {
+      0% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -2px) scale(1.2); opacity: 0.7; }
+    }
+
+    /* Balloons */
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 70px;
+      background: radial-gradient(circle at 30% 30%, #ff69b4, #ff1493);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: float 8s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-120vh) rotate(360deg); }
+    }
+
+    /* Cover letter */
+    .cover-letter {
+      display: none;
+      background: #fffaf0;
+      color: #333;
+      padding: 30px;
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 1.2em;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      border: 2px dashed #ff69b4;
+      border-radius: 10px;
+      font-family: 'Courier New', Courier, monospace;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center">
+    <h1 id="greeting">Happy Birthday!</h1>
+    <div class="cake">
+      <div class="layer layer1"></div>
+      <div class="layer layer2"></div>
+      <div class="layer layer3"></div>
+      <div class="candle">
+        <div class="flame"></div>
+      </div>
+    </div>
+    <audio src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop></audio>
+  </div>
+
+  <div class="cover-letter" id="letter"></div>
+
+  <script>
+    const name = new URLSearchParams(window.location.search).get('name') || 'Sanvi';
+
+    document.getElementById('greeting').textContent = `Happy Birthday, ${name}!`;
+
+    // Balloons
+    for (let i = 0; i < 25; i++) {
+      const b = document.createElement('div');
+      b.classList.add('balloon');
+      b.style.left = Math.random() * 100 + 'vw';
+      b.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(b);
+    }
+
+    // Cover letter text
+    const letterText = `✨ Happy Birthday, Sanvi! ✨
+
+On your special day, I celebrate *you*—your warmth, kindness, and the joy you bring to everyone around you. May happiness fill your heart, laughter brighten your days, and all your dreams unfold beautifully. You deserve all the love and success life has to offer!
+
+Wishing you endless joy, wonderful memories, and a year ahead full of magic. Have the happiest birthday! 🎂💖
+
+With love,
+Roj Shrestha`;
+
+    const letterDiv = document.getElementById('letter');
+    setTimeout(() => {
+      letterDiv.style.display = 'block';
+      typeWriter(letterText, 0);
+    }, 30000); // Show after 30 sec
+
+    function typeWriter(text, i) {
+      if (i < text.length) {
+        letterDiv.textContent = text.substring(0, i + 1);
+        setTimeout(() => typeWriter(text, i + 1), 40);
+      }
+    }
+  </script>
+
+</body>
+</html>
