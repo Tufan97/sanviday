@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday!</title>
   <style>
     body {
       margin: 0;
+      padding: 0;
       background: #fff8f0;
-      overflow: hidden;
       font-family: 'Segoe UI', Tahoma, sans-serif;
+      overflow: hidden;
     }
     .center {
       text-align: center;
@@ -29,30 +30,21 @@
     .cake {
       position: relative;
       width: 150px;
-      height: 150px;
+      height: 120px;
       margin: 50px auto;
       background: #ff69b4;
       border-radius: 10px;
-    }
-    .cake:before {
-      content: '';
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      width: 60px;
-      height: 30px;
-      background: #fff;
-      border-radius: 50%;
-      transform: translateX(-50%);
+      box-shadow: inset 0 -10px 0 #fff, inset 0 -20px 0 #ff69b4, inset 0 -30px 0 #fff;
     }
     .candle {
       position: absolute;
-      top: -50px;
-      left: calc(50% - 5px);
+      top: -40px;
+      left: 50%;
       width: 10px;
-      height: 30px;
+      height: 40px;
       background: #fff;
       border-radius: 2px;
+      transform: translateX(-50%);
     }
     .flame {
       position: absolute;
@@ -88,7 +80,7 @@
     /* Cover letter */
     .cover-letter {
       display: none;
-      background: #fff;
+      background: #fffaf0;
       color: #333;
       padding: 30px;
       max-width: 600px;
@@ -99,6 +91,7 @@
       border: 2px dashed #ff69b4;
       border-radius: 10px;
       font-family: 'Courier New', Courier, monospace;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
   </style>
 </head>
