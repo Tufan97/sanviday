@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Surprise</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: #000;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 18px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .balloon, .rose {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-size: cover;
+      animation: float 6s linear infinite;
+    }
+
+    .balloon {
+      background-image: url('https://i.imgur.com/Jr2uFVY.png');
+    }
+
+    .rose {
+      background-image: url('https://i.imgur.com/DEMOyTZ.png');
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .birthday-message {
+      font-size: 2em;
+      margin-top: 20px;
+      animation: pop 1s infinite alternate;
+    }
+
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+
+    .cake {
+      width: 150px;
+      height: 150px;
+      background: url('https://i.imgur.com/CZ6rj5b.png') center/contain no-repeat;
+      margin-top: 20px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-20px); }
+    }
+
+    .cover-letter {
+      font-size: 1.5em;
+      text-align: center;
+      padding: 20px;
+      display: none;
+    }
+
+    /* Typing Animation */
+    .typing {
+      width: 22ch;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid white;
+      animation: typing 4s steps(22), blink 0.5s step-end infinite alternate;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 22ch; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+  </style>
+</head>
+<body>
+  <div class="center" id="name-section">
+    <h2>Enter Your Name</h2>
+    <input type="text" id="name-input" placeholder="Your Name">
+    <button onclick="checkName()">Submit</button>
+  </div>
+
+  <div class="center hidden" id="error-message">
+    <h2 class="typing">Sorry, there is no any gift for this name</h2>
+  </div>
+
+  <div class="center hidden" id="birthday-section">
+    <h1 class="birthday-message">Happy Birthday!</h1>
+    <div class="cake"></div>
+    <audio id="birthday-song" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop></audio>
+  </div>
+
+  <div class="cover-letter" id="cover-letter">
+    <p class="typing">Dear Friend, <br> Wishing you all the happiness and joy on your special day. May your dreams come true and your life be filled with love and laughter. 🎂❤️</p>
+  </div>
+
+  <script>
+    const correctName = "Manju"; // Change this to your GF's name
+    const balloonsCount = 30;
+
+    function checkName() {
+      const name = document.getElementById('name-input').value.trim();
+      if (name.toLowerCase() === correctName.toLowerCase()) {
+        document.getElementById('name-section').classList.add('hidden');
+        document.getElementById('birthday-section').classList.remove('hidden');
+        startAnimations();
+        setTimeout(showCoverLetter, 30000); // 30 seconds
+      } else {
+        document.getElementById('name-section').classList.add('hidden');
+        document.getElementById('error-message').classList.remove('hidden');
+      }
+    }
+
+    function startAnimations() {
+      const body = document.body;
+      for (let i = 0; i < balloonsCount; i++) {
+        const balloon = document.createElement('div');
+        balloon.classList.add(Math.random() > 0.5 ? 'balloon' : 'rose');
+        balloon.style.left = Math.random() * 100 + 'vw';
+        balloon.style.animationDuration = (4 + Math.random() * 6) + 's';
+        body.appendChild(balloon);
+      }
+    }
+
+    function showCoverLetter() {
+      document.getElementById('birthday-section').classList.add('hidden');
+      document.getElementById('cover-letter').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
