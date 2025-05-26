@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background: url('https://i.imgur.com/7z4gY8n.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+      color: #333;
+    }
+    .center {
+      text-align: center;
+      padding-top: 100px;
+    }
+    .cake {
+      width: 200px;
+      height: 250px;
+      background: url('https://i.imgur.com/YkPp2oK.png') center/contain no-repeat;
+      margin: 20px auto;
+      animation: bounce 1s infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-20px); }
+    }
+    .balloon {
+      position: absolute;
+      width: 60px;
+      height: 80px;
+      background: url('https://i.imgur.com/NU1fK7I.png') center/contain no-repeat;
+      animation: float 8s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+    .cover-letter {
+      display: none;
+      background: rgba(255,255,255,0.9);
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      font-size: 1.2em;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      border: 2px dashed #ff69b4;
+      font-family: 'Courier New', Courier, monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <h1 id="greeting"></h1>
+    <div class="cake"></div>
+    <audio src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop></audio>
+  </div>
+  <div class="cover-letter" id="letter"></div>
+
+  <script>
+    const name = new URLSearchParams(window.location.search).get('name') || 'Dear Friend';
+    document.getElementById('greeting').textContent = `Happy Birthday, ${name}!`;
+
+    // Balloons generator
+    for (let i = 0; i < 30; i++) {
+      const b = document.createElement('div');
+      b.classList.add('balloon');
+      b.style.left = Math.random() * 100 + 'vw';
+      b.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(b);
+    }
+
+    // Cover letter text
+    const letterText = `Dear ${name},
+
+Wishing you a day filled with happiness and a year filled with joy.
+
+Happy Birthday!
+
+With love,
+[Your Name]`;
+
+    const letterDiv = document.getElementById('letter');
+
+    // Show cover letter after 30 seconds
+    setTimeout(() => {
+      letterDiv.style.display = 'block';
+      typeWriter(letterText, 0);
+    }, 30000);
+
+    function typeWriter(text, i) {
+      if (i < text.length) {
+        letterDiv.textContent = text.substring(0, i + 1);
+        setTimeout(() => typeWriter(text, i + 1), 50);
+      }
+    }
+  </script>
+</body>
+</html>
