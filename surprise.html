@@ -12,59 +12,81 @@
       font-family: 'Segoe UI', Tahoma, sans-serif;
       overflow: hidden;
     }
+
     .center {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 50px;
     }
+
     h1 {
       font-size: 2.5em;
       color: #ff69b4;
       animation: pop 1s infinite alternate;
     }
+
     @keyframes pop {
       from { transform: scale(1); }
       to { transform: scale(1.05); }
     }
 
-    /* Cake Layers */
+    /* CAKE STYLING */
     .cake {
       position: relative;
-      width: 180px;
-      height: 180px;
-      margin: 40px auto;
+      width: 160px;
+      height: 160px;
+      margin: 50px auto;
     }
-    .layer {
+
+    .cake .layer {
       position: absolute;
-      bottom: 0;
       left: 50%;
       transform: translateX(-50%);
       background: #ff69b4;
       border-radius: 10px;
       box-shadow: inset 0 -10px 0 #fff;
     }
-    .layer1 { width: 180px; height: 60px; }
-    .layer2 { width: 140px; height: 50px; bottom: 60px; }
-    .layer3 { width: 100px; height: 40px; bottom: 110px; }
+
+    .cake .layer.bottom {
+      width: 160px;
+      height: 50px;
+      bottom: 0;
+    }
+
+    .cake .layer.middle {
+      width: 120px;
+      height: 40px;
+      bottom: 50px;
+    }
+
+    .cake .layer.top {
+      width: 80px;
+      height: 30px;
+      bottom: 90px;
+    }
+
     .candle {
       position: absolute;
+      top: -40px;
+      left: 50%;
       width: 10px;
-      height: 30px;
+      height: 40px;
       background: #fff;
-      border-radius: 3px;
-      top: -30px;
-      left: calc(50% - 5px);
+      border-radius: 2px;
+      transform: translateX(-50%);
     }
+
     .flame {
       position: absolute;
       top: -10px;
       left: 50%;
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       background: radial-gradient(circle, gold, orange);
       border-radius: 50%;
       transform: translateX(-50%);
       animation: flicker 0.2s infinite alternate;
     }
+
     @keyframes flicker {
       0% { transform: translate(-50%, 0) scale(1); opacity: 1; }
       100% { transform: translate(-50%, -2px) scale(1.2); opacity: 0.7; }
@@ -80,6 +102,7 @@
       animation: float 8s linear infinite;
       opacity: 0.8;
     }
+
     @keyframes float {
       0% { transform: translateY(100vh) rotate(0deg); }
       100% { transform: translateY(-120vh) rotate(360deg); }
@@ -108,9 +131,9 @@
   <div class="center">
     <h1 id="greeting">Happy Birthday!</h1>
     <div class="cake">
-      <div class="layer layer1"></div>
-      <div class="layer layer2"></div>
-      <div class="layer layer3"></div>
+      <div class="layer bottom"></div>
+      <div class="layer middle"></div>
+      <div class="layer top"></div>
       <div class="candle">
         <div class="flame"></div>
       </div>
@@ -122,7 +145,6 @@
 
   <script>
     const name = new URLSearchParams(window.location.search).get('name') || 'Sanvi';
-
     document.getElementById('greeting').textContent = `Happy Birthday, ${name}!`;
 
     // Balloons
@@ -148,7 +170,7 @@ Roj Shrestha`;
     setTimeout(() => {
       letterDiv.style.display = 'block';
       typeWriter(letterText, 0);
-    }, 30000); // Show after 30 sec
+    }, 30000); // After 30 sec
 
     function typeWriter(text, i) {
       if (i < text.length) {
